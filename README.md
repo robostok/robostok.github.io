@@ -8,7 +8,7 @@ Qui speriamo potrai trovare tutte le informazioni e le risorse che cerchi per il
 
 Hai acquistato o hai costruito un OpenGPV?
 
-Puoi accedere al configuratore online cliccando su [opengpvconfig](questo link).
+Puoi accedere al configuratore online cliccando su [queso link](opengpvconfig).
 
 
 ## Supporto e Contatti
