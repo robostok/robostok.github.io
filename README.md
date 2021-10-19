@@ -13,4 +13,4 @@ Puoi accedere al configuratore online cliccando su [questo link](opengpvconfig).
 
 ## Supporto e Contatti
 
-hai bisogno di una consulenza? hai problemi a far funzionare il tuo prodotto? Contattaci all'idirizzo robostoksolutions+gh@gmail.com per qualsiasi cosa!
+Hai bisogno di una consulenza? Hai problemi a far funzionare il tuo prodotto? Contattaci all'indirizzo robostoksolutions+gh@gmail.com per qualsiasi cosa!
