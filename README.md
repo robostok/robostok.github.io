@@ -4,7 +4,7 @@ Ciao! Se sei atterrato su questa pagina è probabile che tu abbia acqusitato o  
 
 Qui speriamo potrai trovare tutte le informazioni e le risorse che cerchi per il funzionamento del prodotto.
 
-## OpenGPV
+## Lettore Greenpass OpenGPV
 
 Hai acquistato o hai costruito un OpenGPV?
 
