@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- 
+(C) 2021 Robostok
+OpenGPV Device QR Code config generator
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it" lang="it">
+<head>
+<title>OpenGPV Configuration QRCode</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="qrcode.js"></script>
+<style type="text/css">
+body{
+	font-family: Arial, Helvetica, sans-serif;
+	background-color: white;
+}
+
+ /* Style inputs, select elements and textareas */
+input[type=text],input[type=password], select, textarea{
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+/* Style the label to display next to the inputs */
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+.center {
+	margin:0 auto;
+	display:block;
+}
+
+.div_center {
+  border: 2px solid black;
+  margin: auto;
+  position: relative;
+  text-align: center;
+  max-width: 848px;  
+}
+
+/* Style the submit button */
+input[type=button] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Style the container */
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+/* Floating column for labels: 25% width */
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+/* Floating column for inputs: 75% width */
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .col-25, .col-75, input[type=button] {
+    width: 100%;
+    margin-top: 0;
+  }
+} 
+</style>
+</head>
+<body>
+<div class="wrapper div_center">
+<div class="container">
+	<div class="row">
+		<h1>Configuratore OpenGPV</h1>
+		<p>
+		Imposta tutti i parametri e premi il bottone "Genera QR". Successivamente posiziona il QR davanti alla fotocamera del tuo OpenGPV che si riavvierà con la nuova configurazione.
+		</p>
+	</div>
+	<div id="form_qr" style="max-width: 848px">
+		<div class="row">
+			<h2>Impostazioni Rete Wireless</h2>
+		</div>
+		<div class="row">
+      		<div class="col-25">
+				<label for="tx_essid">SSID:</label>
+			</div>
+			<div class="col-25">
+				<input id="tx_essid" type="text" value="" class="qrgen"/><br />
+			</div>
+		</div>
+		
+		<div class="row">
+      		<div class="col-25">
+				<label for="tx_psk">Passphrase:</label>
+			</div>
+			<div class="col-25">
+				<input id="tx_psk" type="password" value="" class="qrgen"/><br />
+			</div>
+		</div>
+		
+		<div class="row">
+      		<div class="col-25">
+				<label for="sl_country">Country:</label>
+			</div>
+			<div class="col-25">
+				<select name="sl_country" id="sl_country">
+		  			<option value="IT">Italia (IT)</option>	
+				</select>
+			</div>
+		</div>
+		
+		<!--
+		<label for="tx_old_pin">PIN:</label><input id="tx_old_pin" type="password" value=""  class="qrgen"/><br />
+		<label for="tx_new_pin">PIN:</label><input id="tx_new_pin" type="password" value=""  class="qrgen"/><br />
+		<label for="tx_new_pin_confirm">PIN (Confirm):</label><input id="tx_new_pin_confirm" type="password" value=""  class="qrgen"/><br />
+		-->
+		<div class="row">
+			<input type="button" id="btn_generate" value="Genera QR" />
+		</div>
+		<div class="row">
+		<p>
+		Questa pagina non memorizza nessuna informazione sul server. Tutta la generazione del QR Code viene effettuata nel tuo browser.
+		</p>
+		</div>
+	</div>
+	
+	<div id="qr_container">
+		<div class="row center">
+			<div id="qrcode" class="center" style="width:300px; height:300px; margin-top:15px;"></div>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+	var qrcode = new QRCode(document.getElementById("qrcode"), {
+		width : 300,
+		height : 300,
+		correctLevel : QRCode.CorrectLevel.H
+	});
+
+	function makeCode () {			
+		var textConf = '[wireless]\n\
+	ssid=' + document.getElementById("tx_essid").value + '\n\
+	psk=' + document.getElementById("tx_psk").value + '\n\
+	country=' + document.getElementById("sl_country").value
+		console.log(textConf)
+		textConf = btoa(textConf)
+		textConf = "CFG:" + textConf
+		qrcode.makeCode(textConf);
+		console.log(textConf);
+	}
+
+	makeCode();
+
+	$(".qrgen").
+		on("blur", function () {
+			makeCode();
+		}).
+		on("keydown", function (e) {
+			if (e.keyCode == 13) {
+				makeCode();
+			}
+		});
+		
+	$("#btn_generate").
+		on("click", function () {
+			makeCode();
+		});
+	</script>
+</div>
+</div>
+</body>
+
